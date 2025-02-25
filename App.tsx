@@ -1,20 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { Platform } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import HomeScreen from "./src/screens/HomeScreen";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
-export default function App() {
+const uri =
+  Platform.OS === "android"
+    ? "http://10.0.2.2:4000/graphql"
+    : "http://localhost:4000/graphql";
+
+const client = new ApolloClient({
+  uri: uri,
+  cache: new InMemoryCache(),
+});
+
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ApolloProvider client={client}>
+      <SafeAreaProvider>
+        <GestureHandlerRootView>
+          <StatusBar style="light" />
+          <HomeScreen />
+        </GestureHandlerRootView>
+      </SafeAreaProvider>
+    </ApolloProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
