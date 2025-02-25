@@ -8,7 +8,7 @@
 
 ## How to run the app
 
-- Clone repo and the backend repo
+- Clone this repo and the backend repo (https://github.com/jbetancourt8/propx-backend)
 - `cd` into folder and run `npm install`
 - make sure the backend is running locally before running the app
 - use `npx expo start` to start metro bundler
